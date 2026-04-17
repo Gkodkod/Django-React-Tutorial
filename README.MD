@@ -84,3 +84,21 @@ urlpatterns = [
     ),
 ]
 ```
+
+### See ALL routes (like a route dump)
+
+```bash
+pip install django-extensions
+```
+
+```python
+# backend/settings.py
+INSTALLED_APPS = [
+    # ...
+    "django_extensions",
+]
+```
+
+```bash
+python manage.py show_urls
+```

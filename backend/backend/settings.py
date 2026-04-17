@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     "rest_framework",
     #'rest_framework_simplejwt',
     "drf_spectacular",
+    "django_extensions",
     "corsheaders",
     "api",
 ]
