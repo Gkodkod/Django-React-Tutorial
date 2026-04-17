@@ -1,14 +1,14 @@
-import { jwtDecode } from 'jwt-decode';
-import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 import api from '../api';
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '../constants';
+import { REFRESH_TOKEN, ACCESS_TOKEN } from '../constants';
+import { useState, useEffect } from 'react';
 
 function ProtectedRoute({ children }) {
   const [isAuthorized, setIsAuthorized] = useState(null);
 
   useEffect(() => {
-    auth();
+    auth().catch(() => setIsAuthorized(false));
   }, []);
 
   const refreshToken = async () => {
@@ -23,10 +23,9 @@ function ProtectedRoute({ children }) {
       } else {
         setIsAuthorized(false);
       }
-      return false;
     } catch (error) {
       console.log(error);
-      return false;
+      setIsAuthorized(false);
     }
   };
 
@@ -36,16 +35,12 @@ function ProtectedRoute({ children }) {
       setIsAuthorized(false);
       return;
     }
-
     const decoded = jwtDecode(token);
-    const isExpired = decoded.exp;
+    const tokenExpiration = decoded.exp;
     const now = Date.now() / 1000;
 
-    if (isExpired < now) {
-      const refreshSuccess = await refreshToken();
-      if (!refreshSuccess) {
-        setIsAuthorized(false);
-      }
+    if (tokenExpiration < now) {
+      await refreshToken();
     } else {
       setIsAuthorized(true);
     }
