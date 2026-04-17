@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import api from '../api';
 import '../styles/Home.css';
 import Note from '../components/Note';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 
 function Home() {
   const [notes, setNotes] = useState([]);
@@ -66,7 +68,7 @@ function Home() {
       <form onSubmit={createNote}>
         <label htmlFor="title">Title:</label>
         <br />
-        <input
+        <Input
           type="text"
           id="title"
           name="title"
@@ -76,15 +78,15 @@ function Home() {
         />
         <label htmlFor="content">Content:</label>
         <br />
-        <textarea
+        <Textarea
           id="content"
           name="content"
           required
           value={content}
           onChange={(e) => setContent(e.target.value)}
-        ></textarea>
+        ></Textarea>
         <br />
-        <input type="submit" value="Submit"></input>
+        <Input type="submit" value="Submit"></Input>
       </form>
     </div>
   );

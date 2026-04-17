@@ -102,3 +102,16 @@ INSTALLED_APPS = [
 ```bash
 python manage.py show_urls
 ```
+
+### Add shadcn UI Components
+
+```bash
+npm install tailwindcss @tailwindcss/vite
+npx shadcn@latest init
+```
+
+```bash
+npx shadcn@latest add input
+npx shadcn@latest add textarea
+npx shadcn@latest add button
+```
