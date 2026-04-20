@@ -1,0 +1,71 @@
+# ==========================================
+# Root .gitignore for Django & React Project
+# ==========================================
+
+# ----------------------
+# Section 1: Python & Django (Backend)
+# ----------------------
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environments (Ignore env folders containing dependencies)
+env/
+venv/
+.env/
+.venv/
+backend/venv/
+backend/.venv/
+env.bak/
+venv.bak/
+
+# Django specific local files
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Celery temporary files (if you ever use Celery for tasks)
+celerybeat-schedule
+celerybeat.pid
+
+# ----------------------
+# Section 2: Environment Variables
+# ----------------------
+# Ignore all .env files so secrets don't leak into source control
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+!.env.template  # Allow the template to be committed
+!.env.example
+
+# ----------------------
+# Section 3: OS & IDE generated files
+# ----------------------
+# Mac OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows OS files
+ehthumbs.db
+Thumbs.db
+
+# IDEs and Editors (VS Code, IntelliJ, etc)
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# ----------------------
+# Section 4: Docker (Optional Ignore)
+# ----------------------
+# You typically want to ignore Docker volumes if they are mapped locally
+pgdata/

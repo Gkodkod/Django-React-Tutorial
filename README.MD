@@ -36,6 +36,28 @@ python manage.py migrate
 python manage.py runserver
 ```
 
+### Docker Environment
+
+We have fully containerized the application for seamless local development. The Docker Compose configuration spins up three integrated services automatically:
+
+1. **Database (`db`)**: A **PostgreSQL 18** container explicitly bound to port `5433` internally (via `-p 5433`). It uses a static container name (`unique-postgres-db`) to elegantly bypass known Debian local networking DNS bugs.
+2. **Django API (`backend`)**: Running purely on the edge **Python 3.14** image. Upon booting, the backend natively pauses for 5 seconds to ensure Postgres is fully alive, automatically runs `python manage.py migrate`, and spins up the Django `runserver`.
+3. **React Client (`frontend`)**: Powered by Vite and PNPM. The compose maps your local directory directly into the container using `CI=true` to automatically reinstall modules without messy terminal prompts, ensuring zero host-vs-container binary conflicts.
+
+**How to start the full stack:**
+```bash
+# Wipe out lingering networks/data if you have corrupted states
+docker-compose down -v
+
+# Build and start the entire frontend, backend, and database ecosystem natively
+docker-compose up --build
+
+docker-compose exec backend python manage.py makemigrations
+docker-compose exec backend python manage.py migrate
+```
+
+*(Note: You no longer need to jump into the container to manually run `migrate` or `runserver`! The `Dockerfile CMD` automates the entire startup sequence for you!)*
+
 ## FRONTEND
 
 ```bash
