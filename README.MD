@@ -1,5 +1,21 @@
 # Django & React Web App Tutorial - Authentication, Databases, Deployment & More
 
+## Project Overview
+
+This repository contains a full-stack web application built with **Django** (Backend) and **React** (Frontend). It serves as a comprehensive tutorial on building, configuring, and connecting a modern frontend to a robust RESTful API.
+
+### Key Features
+- **Frontend**: React application built with Vite, utilizing **Shadcn UI** and **Tailwind CSS** for styling. Includes routing with `react-router-dom`.
+- **Backend**: Django & Django REST Framework for the API.
+- **Authentication**: JWT-based authentication using `djangorestframework-simplejwt` and `jwt-decode`.
+- **Database**: Works with SQLite natively, easily configurable for PostgreSQL.
+- **API Documentation**: Automated Swagger and ReDoc generation using `drf-spectacular`.
+
+### Repository Structure
+- `backend/`: The Django application containing the settings, API endpoints, management scripts, and db models.
+- `frontend/`: The React application containing all UI components, pages, and API connection logic.
+
+---
 ## BACKEND
 
 ```bash
@@ -39,7 +55,7 @@ python manage.py createsuperuser
 
 ### Django users and groups
 
-login to admin panel: http://localhost:8000/admin/
+login to admin panel: http://localgalghost:8000/admin/
 
 ```bash
 python manage.py adduser <username> <password>
@@ -84,6 +100,28 @@ urlpatterns = [
     ),
 ]
 ```
+
+To access the API documentation:
+Start the backend development server and navigate your browser to `http://127.0.0.1:8000/api/docs/` for the interactive Swagger UI. The raw OpenAPI schema is available at `http://127.0.0.1:8000/api/schema/`.
+
+### Available API Routes
+
+When the backend server is running locally (typically `localhost:8000`), the following API endpoints are active:
+
+**Authentication:**
+- `POST /api/user/register/`: Register a new user.
+- `POST /api/token/`: Obtain JWT access and refresh tokens (Login).
+- `POST /api/token/refresh/`: Refresh an expired JWT access token.
+- `GET /api-auth/`: Browsable API login (Django REST Framework default).
+
+**Notes (Requires Authentication):**
+- `GET /api/notes/`: Retrieve a list of all notes for the authenticated user.
+- `POST /api/notes/`: Create a new note.
+- `DELETE /api/notes/<id>/`: Delete a specific note.
+
+**Documentation:**
+- `GET /api/schema/`: Raw OpenAPI schema.
+- `GET /api/docs/`: Swagger UI interactive documentation.
 
 ### See ALL routes (like a route dump)
 
